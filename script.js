@@ -5,7 +5,7 @@ const ctx = canvas.getContext('2d');
 
 /// created object ball to be refrenced by code
 const ball = {
-    radius: 20,
+    radius: 15,
     positionX: canvas.width / 2,
     positionY: canvas.height / 2,
     dx: 4,
@@ -54,13 +54,25 @@ function drawBall(){
     ctx.fill();
     ctx.closePath();
 }
-function update(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    drawBall();
 
+function moveBall(){
     ball.positionX += ball.dx;
     ball.positionY += ball.dy;
 
+    if(ball.positionX + ball.radius > canvas.width || ball.positionX - ball.radius < 0){
+        ball.dx *= -1;
+    }
+
+    if(ball.positionY + ball.radius > canvas.height || ball.positionY - ball.radius < 0){
+        ball.dy *= -1;
+    }
+}
+function update(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    drawBall();
+    drawPaddle(leftPaddle.positionX,leftPaddle.positionY,leftPaddle.width,leftPaddle.height,leftPaddle.color)
+    drawPaddle(rightPaddle.positionX,rightPaddle.positionY,rightPaddle.width,rightPaddle.height,rightPaddle.color)
+    moveBall();
 
     requestAnimationFrame(update)
 }

@@ -20,6 +20,7 @@ const leftPaddle = {
     positionY: canvas.height/4,
     color: 'red',
     player: 'left',
+    dy: 0,
     speed: 4
 }
 
@@ -67,16 +68,66 @@ function moveBall(){
         ball.dy *= -1;
     }
 }
+
+function moveUp(){
+    leftPaddle.dy = -leftPaddle.speed;
+    detectbarrier()
+}
+
+function moveDown(){
+    leftPaddle.dy = leftPaddle.speed;
+    detectbarrier()
+}
+
+function movePaddle(){
+    leftPaddle.positionY += leftPaddle.dy;
+    
+}
+
+function detectbarrier(){
+    if (leftPaddle.positionY < 0){
+        leftPaddle.positionY = 0;
+    }
+
+    if (leftPaddle.positionY + leftPaddle.height > canvas.height){
+        leftPaddle.positionY = canvas.height - leftPaddle.height;
+    }
+}
+
+function keyDown(e){
+    if(e.key === 'ArrowUp' || e.key === 'Up'){
+        moveUp();
+    }
+    else if(e.key === 'ArrowDown'|| e.key === 'Down'){
+        moveDown();
+    }
+}
+
+function keyUp(e){
+    if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'Up' || e.key === 'Down')
+    {
+        leftPaddle.dy = 0
+    } 
+}
+
+
+
 function update(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     drawBall();
     drawPaddle(leftPaddle.positionX,leftPaddle.positionY,leftPaddle.width,leftPaddle.height,leftPaddle.color)
     drawPaddle(rightPaddle.positionX,rightPaddle.positionY,rightPaddle.width,rightPaddle.height,rightPaddle.color)
     moveBall();
+    movePaddle();
 
     requestAnimationFrame(update)
 }
 
 update();
+
+document.addEventListener('keydown', keyDown);
+document.addEventListener('keyup', keyUp);
+
+
 
 

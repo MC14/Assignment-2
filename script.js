@@ -6,8 +6,8 @@ const ctx = canvas.getContext('2d');
 /// created object ball to be refrenced by code
 const ball = {
     radius: 20,
-    positionX: canvas.width / 2 + 20,
-    positionY: canvas.height / 2 + 20,
+    positionX: canvas.width / 2,
+    positionY: canvas.height / 2,
     velocityX: 4,
     velocityY: 4,
     color: 'black'
@@ -32,6 +32,48 @@ const rightPaddle= {
     player: 'right',
     speed: 4
 }
+
+const game = {
+    leftScore: 0,
+    rightScore: 0,
+    turn: 0,
+    topScore: 20,
+    speedIncreaseHit: 3,
+}
+
+const keyPressed = {
+    W: false,
+    S: false,
+}
+
+document.addEventListener('keydown', (event) => {
+    var name = event.key;
+    var code = event.code;
+
+    if (code === 'KeyS') {
+        keyPressed['S'] = true;
+    }
+    if (code === 'KeyW') {
+        keyPressed['W'] = true;
+    }
+
+}, false);
+
+document.addEventListener('keyup', (event) => {
+    var name = event.key;
+    var code = event.code;
+
+    if (code === 'KeyS') {
+        keyPressed['S'] = false;
+    }
+    if (code === 'KeyW') {
+        keyPressed['W'] = false;
+    }
+}, false);
+
+
+
+
  ///this function draws the paddles based on the parameters given
 function drawPaddle(x,y,sizex,sizey,color){
     ctx.fillStyle = color; ///fill style fills in the rectangle with the color given
@@ -44,6 +86,19 @@ function drawBall(){
     ctx.arc(ball.positionX, ball.positionY, ball.radius, 0, Math.PI * 2);
     ctx.fill();
     ctx.closePath();
+}
+
+function updateKeyPresses() {
+    if (keyPressed['W']) {
+        if (leftPlayer.positionY > 0) {
+            leftPlayer.positionY -= leftPlayer.speed;
+        }
+    }
+    if (keyPressed['S']) {
+        if (leftPlayer.positionY < canvas.height - leftPlayer.height) {
+            leftPlayer.positionY += leftPlayer.speed;
+        }
+    }
 }
 
 drawPaddle(leftPaddle.positionX,leftPaddle.positionY,leftPaddle.width,leftPaddle.height,leftPaddle.color)

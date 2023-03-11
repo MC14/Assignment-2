@@ -8,8 +8,8 @@ const ball = {
     radius: 20,
     positionX: canvas.width / 2,
     positionY: canvas.height / 2,
-    velocityX: 4,
-    velocityY: 4,
+    dx: 4,
+    dy: 4,
     color: 'black'
 }
 /// created a refrence object for the two paddles in the game
@@ -41,39 +41,6 @@ const game = {
     speedIncreaseHit: 3,
 }
 
-const keyPressed = {
-    W: false,
-    S: false,
-}
-
-document.addEventListener('keydown', (event) => {
-    var name = event.key;
-    var code = event.code;
-
-    if (code === 'KeyS') {
-        keyPressed['S'] = true;
-    }
-    if (code === 'KeyW') {
-        keyPressed['W'] = true;
-    }
-
-}, false);
-
-document.addEventListener('keyup', (event) => {
-    var name = event.key;
-    var code = event.code;
-
-    if (code === 'KeyS') {
-        keyPressed['S'] = false;
-    }
-    if (code === 'KeyW') {
-        keyPressed['W'] = false;
-    }
-}, false);
-
-
-
-
  ///this function draws the paddles based on the parameters given
 function drawPaddle(x,y,sizex,sizey,color){
     ctx.fillStyle = color; ///fill style fills in the rectangle with the color given
@@ -87,20 +54,17 @@ function drawBall(){
     ctx.fill();
     ctx.closePath();
 }
+function update(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    drawBall();
 
-function updateKeyPresses() {
-    if (keyPressed['W']) {
-        if (leftPlayer.positionY > 0) {
-            leftPlayer.positionY -= leftPlayer.speed;
-        }
-    }
-    if (keyPressed['S']) {
-        if (leftPlayer.positionY < canvas.height - leftPlayer.height) {
-            leftPlayer.positionY += leftPlayer.speed;
-        }
-    }
+    ball.positionX += ball.dx;
+    ball.positionY += ball.dy;
+
+
+    requestAnimationFrame(update)
 }
 
-drawPaddle(leftPaddle.positionX,leftPaddle.positionY,leftPaddle.width,leftPaddle.height,leftPaddle.color)
-drawPaddle(rightPaddle.positionX,rightPaddle.positionY,rightPaddle.width,rightPaddle.height,rightPaddle.color)
-drawBall()
+update();
+
+

@@ -3,6 +3,7 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const plyScore = document.getElementById('player score')
 const compScore = document.getElementById('computer score')
+const display = document.getElementById('display')
 
 /// created object ball to be refrenced by code
 const ball = {
@@ -92,22 +93,35 @@ function updatescore(score){
     if (score == true){
         plyScore.textContent = parseInt(plyScore.textContent) + 1;
         gameover(parseInt(plyScore.textContent), score)
-        ctx.font = "30px Arial";
-        ctx.fillStyle = 'black';
-        ctx.fillText("Player scored a Point!", canvas.width/2 , 550)
+        document.getElementById('display').innerHTML = "Player scored a point!";
     }
     else if(score == false){
         compScore.textContent = parseInt(compScore.textContent) + 1;
         gameover(parseInt(compScore.textContent), score)
-        ctx.font = "30px Arial";
-        ctx.fillStyle = 'black';
-        ctx.fillText("Computer scored a Point!", canvas.width/2 , 550)
+        document.getElementById('display')= "Computer scored a point!";
     }
 }
 
 function gameover(total, score){
     if (total == 20){
         if(score == true){
+            resetball();
+            ball.dy = 0;
+            ball.dx = 0;
+            document.removeEventListener('keydown', keyDown);
+            document.removeEventListener('keyup', keyUp);
+            plyScore.textContent = parseInt(0);
+            compScore.textContent = parseInt(0);
+            document.getElementById('display') = "The Player wins!";
+
+        }
+        if(score == false){
+            resetball();
+            ball.dy = 0;
+            ball.dx = 0;
+            document.removeEventListener('keydown', keyDown);
+            document.removeEventListener('keyup', keyUp);
+            document.getElementById('display') = "The Computer Wins!";
 
         }
     }

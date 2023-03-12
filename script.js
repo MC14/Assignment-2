@@ -73,6 +73,10 @@ function moveBall(){
             ball.dx *= -1;
         }
 
+    if(rightPaddle.positionX < ball.positionX - ball.radius && rightPaddle.positionX-rightPaddle.width > ball.positionX
+        && rightPaddle.positionY<ball.positionY-ball.radius && rightPaddle.positionY -rightPaddle.height > ball.positionY){
+            ball.dx *= -1;
+        }
 }
 
 function moveUp(){

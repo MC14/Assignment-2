@@ -56,8 +56,8 @@ function drawBall(){
 }
 
 function moveBall(){
-    ball.positionX += ball.dx;
-    ball.positionY += ball.dy;
+    ball.positionX -= ball.dx;
+    ball.positionY -= ball.dy;
 
     if(ball.positionX + ball.radius > canvas.width){
         resetball();
@@ -98,12 +98,12 @@ function updatescore(score){
     else if(score == false){
         compScore.textContent = parseInt(compScore.textContent) + 1;
         gameover(parseInt(compScore.textContent), score)
-        document.getElementById('display')= "Computer scored a point!";
+        document.getElementById('display').innerHTML = "Computer scored a point!";
     }
 }
 
 function gameover(total, score){
-    if (total == 20){
+    if (total == 5){
         if(score == true){
             resetball();
             ball.dy = 0;
@@ -112,7 +112,7 @@ function gameover(total, score){
             document.removeEventListener('keyup', keyUp);
             plyScore.textContent = parseInt(0);
             compScore.textContent = parseInt(0);
-            document.getElementById('display') = "The Player wins!";
+            document.getElementById('finalscore').innerHTML = "The Player wins!"
 
         }
         if(score == false){
@@ -121,7 +121,9 @@ function gameover(total, score){
             ball.dx = 0;
             document.removeEventListener('keydown', keyDown);
             document.removeEventListener('keyup', keyUp);
-            document.getElementById('display') = "The Computer Wins!";
+            plyScore.textContent = parseInt(0);
+            compScore.textContent = parseInt(0);
+            document.getElementById('finalscore').innerHTML = "The Computer Wins!";
 
         }
     }
@@ -144,7 +146,7 @@ function movePaddle(){
 }
 
 function detectbarrier(){
-    if (leftPaddle.positionY < 0){
+    if (leftPaddle.positionY <= 0){
         leftPaddle.positionY = 0;
     }
 

@@ -39,7 +39,7 @@ const game = {
     rightScore: 0,
     turn: 0,
     topScore: 20,
-    speedIncreaseHit: 3,
+    speedIncreaseHit: 0,
 }
 
  ///this function draws the paddles based on the parameters given
@@ -66,6 +66,12 @@ function moveBall(){
 
     if(ball.positionY + ball.radius > canvas.height || ball.positionY - ball.radius < 0){
         ball.dy *= -1;
+    }
+
+    if(ball.positionX + ball.radius + ball.dx < leftPaddle.positionX){
+        if(ball.positionY + ball.radius +ball.dy <= leftPaddle.height){
+            ball.dx *=1;
+        }
     }
 }
 

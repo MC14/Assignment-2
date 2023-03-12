@@ -1,7 +1,8 @@
 ///Started with the initalizing of the canvas by getting it from the DOC and contexting it in 2D
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-
+const plyScore = document.getElementById('player score')
+const compScore = document.getElementById('computer score')
 
 /// created object ball to be refrenced by code
 const ball = {
@@ -35,9 +36,6 @@ const rightPaddle= {
 }
 
 const game = {
-    leftScore: 0,
-    rightScore: 0,
-    turn: 0,
     topScore: 20,
     speedIncreaseHit: 0,
 }
@@ -61,13 +59,13 @@ function moveBall(){
     ball.positionY += ball.dy;
 
     if(ball.positionX + ball.radius > canvas.width){
-        updatescore();
         resetball();
+        updatescore(true);
     }
 
     if(ball.positionX - ball.radius < 0){
-        updatescore();
         resetball();
+        updatescore(false);
     }
 
     if(ball.positionY + ball.radius > canvas.height || ball.positionY - ball.radius < 0){
@@ -85,9 +83,35 @@ function moveBall(){
         }
 }
 
-resetball(){
+function resetball(){
     ball.positionX = canvas.width / 2;
     ball.positionY = canvas.height / 2;
+}
+
+function updatescore(score){
+    if (score == true){
+        plyScore.textContent = parseInt(plyScore.textContent) + 1;
+        gameover(parseInt(plyScore.textContent), score)
+        ctx.font = "30px Arial";
+        ctx.fillStyle = 'black';
+        ctx.fillText("Player scored a Point!", canvas.width/2 , 550)
+    }
+    else if(score == false){
+        compScore.textContent = parseInt(compScore.textContent) + 1;
+        gameover(parseInt(compScore.textContent), score)
+        ctx.font = "30px Arial";
+        ctx.fillStyle = 'black';
+        ctx.fillText("Computer scored a Point!", canvas.width/2 , 550)
+    }
+}
+
+function gameover(total, score){
+    if (total == 20){
+        if(score == true){
+
+        }
+    }
+    
 }
 
 function moveUp(){

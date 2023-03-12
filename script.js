@@ -60,8 +60,14 @@ function moveBall(){
     ball.positionX += ball.dx;
     ball.positionY += ball.dy;
 
-    if(ball.positionX + ball.radius > canvas.width || ball.positionX - ball.radius < 0){
-        ball.dx *= -1;
+    if(ball.positionX + ball.radius > canvas.width){
+        updatescore();
+        resetball();
+    }
+
+    if(ball.positionX - ball.radius < 0){
+        updatescore();
+        resetball();
     }
 
     if(ball.positionY + ball.radius > canvas.height || ball.positionY - ball.radius < 0){
@@ -77,6 +83,11 @@ function moveBall(){
         && rightPaddle.positionY<ball.positionY+ball.radius && rightPaddle.positionY +rightPaddle.height > ball.positionY){
             ball.dx *= -1;
         }
+}
+
+resetball(){
+    ball.positionX = canvas.width / 2;
+    ball.positionY = canvas.height / 2;
 }
 
 function moveUp(){

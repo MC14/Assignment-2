@@ -9,6 +9,7 @@ body{
     align-items: center;
     justify-content: center;
     background-color: gray;
+    margin: 0;
 }
 
 
@@ -27,10 +28,9 @@ body{
 .score > :first-child {
     text-align: left;
     border-right: .5px solid black;
-    color: aqua;
 }
 
 .score > :last-child{
     text-align: right;
-    color:red
+    margin-left: 100px;
 }

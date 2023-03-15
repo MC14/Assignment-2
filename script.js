@@ -34,7 +34,7 @@ const rightPaddle= {
     color: 'blue',
     player: 'right',
     dy: 0,
-    speed: 4
+    speed: 6
 }
 
 const game = {
@@ -149,15 +149,26 @@ function movePaddle(){
 function movePaddleAI(){
 
     if (rightPaddle.positionY > ball.positionY - (rightPaddle.height/2)){
-        rightPaddle.dy = rightPaddle.speed
-        rightPaddle.positionY -= rightPaddle.dy;
-    
+        if(ball.dx < 0){
+            rightPaddle.dy = rightPaddle.speed/2
+            rightPaddle.positionY -= rightPaddle.dy;    
+        }
+        else if(ball.dx > 0){
+            rightPaddle.dy = rightPaddle.speed
+            rightPaddle.positionY -= rightPaddle.dy;
+        }
         detectbarrier()
 }
     
     if (rightPaddle.positionY < ball.positionY - (rightPaddle.height/2)){
-        rightPaddle.dy = rightPaddle.speed
-        rightPaddle.positionY += rightPaddle.dy;
+        if(ball.dx < 0){
+            rightPaddle.dy = rightPaddle.speed/2
+            rightPaddle.positionY += rightPaddle.dy;    
+        }
+        else if(ball.dx > 0){
+            rightPaddle.dy = rightPaddle.speed
+            rightPaddle.positionY += rightPaddle.dy;
+        }
         detectbarrier()
 }
 }

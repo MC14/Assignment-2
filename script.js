@@ -16,7 +16,7 @@ const ball = {
 }
 /// created a refrence object for the two paddles in the game
 const leftPaddle = {
-    height: 100,
+    height: 75,
     width: 25,
     positionX: canvas.width/8,
     positionY: canvas.height/4,
@@ -27,19 +27,18 @@ const leftPaddle = {
 }
 
 const rightPaddle= {
-    height: 100,
+    height: 75,
     width: 25,
     positionX: canvas.width-112.5,
     positionY: canvas.height/4,
     color: 'blue',
     player: 'right',
     dy: 0,
-    speed: 6
+    speed: 8
 }
 
 const game = {
     topScore: 20,
-    speedIncreaseHit: 0,
 }
 
  ///this function draws the paddles based on the parameters given
@@ -76,11 +75,13 @@ function moveBall(){
 
     if(leftPaddle.positionX < ball.positionX + ball.radius && leftPaddle.positionX+leftPaddle.width > ball.positionX
         && leftPaddle.positionY<ball.positionY+ball.radius && leftPaddle.positionY +leftPaddle.height > ball.positionY){
+            ball.dx ++;
             ball.dx *= -1;
         }
 
     if(rightPaddle.positionX < ball.positionX + ball.radius && rightPaddle.positionX+rightPaddle.width > ball.positionX
         && rightPaddle.positionY<ball.positionY+ball.radius && rightPaddle.positionY +rightPaddle.height > ball.positionY){
+            ball.dx ++;
             ball.dx *= -1;
         }
 }
@@ -88,6 +89,7 @@ function moveBall(){
 function resetball(){
     ball.positionX = canvas.width / 2;
     ball.positionY = canvas.height / 2;
+    ball.dx = 4;
 }
 
 function updatescore(score){

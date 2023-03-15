@@ -34,7 +34,7 @@ const rightPaddle= {
     color: 'blue',
     player: 'right',
     dy: 0,
-    speed: 8
+    speed: 6
 }
 
 const game = {
@@ -75,13 +75,11 @@ function moveBall(){
 
     if(leftPaddle.positionX < ball.positionX + ball.radius && leftPaddle.positionX+leftPaddle.width > ball.positionX
         && leftPaddle.positionY<ball.positionY+ball.radius && leftPaddle.positionY +leftPaddle.height > ball.positionY){
-            ball.dx ++;
             ball.dx *= -1;
         }
 
     if(rightPaddle.positionX < ball.positionX + ball.radius && rightPaddle.positionX+rightPaddle.width > ball.positionX
         && rightPaddle.positionY<ball.positionY+ball.radius && rightPaddle.positionY +rightPaddle.height > ball.positionY){
-            ball.dx ++;
             ball.dx *= -1;
         }
 }

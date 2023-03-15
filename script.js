@@ -23,7 +23,7 @@ const leftPaddle = {
     color: 'red',
     player: 'left',
     dy: 0,
-    speed: 4
+    speed: 6
 }
 
 const rightPaddle= {
@@ -33,6 +33,7 @@ const rightPaddle= {
     positionY: canvas.height/4,
     color: 'blue',
     player: 'right',
+    dy: 0,
     speed: 4
 }
 
@@ -145,6 +146,23 @@ function movePaddle(){
     
 }
 
+function movePaddleAI(){
+
+    if (rightPaddle.positionY > ball.positionY - (rightPaddle.height/2)){
+        rightPaddle.dy = rightPaddle.speed
+        rightPaddle.positionY -= rightPaddle.dy;
+    
+        detectbarrier()
+}
+    
+    if (rightPaddle.positionY < ball.positionY - (rightPaddle.height/2)){
+        rightPaddle.dy = rightPaddle.speed
+        rightPaddle.positionY += rightPaddle.dy;
+        detectbarrier()
+}
+}
+       
+
 function detectbarrier(){
     if (leftPaddle.positionY <= 0){
         leftPaddle.positionY = 0;
@@ -152,6 +170,14 @@ function detectbarrier(){
 
     if (leftPaddle.positionY + leftPaddle.height > canvas.height){
         leftPaddle.positionY = canvas.height - leftPaddle.height;
+    }
+
+    if (rightPaddle.positionY <= 0){
+        rightPaddle.positionY = 0;
+    }
+
+    if (rightPaddle.positionY + rightPaddle.height > canvas.height){
+        rightPaddle.positionY = canvas.height - rightPaddle.height;
     }
 }
 
@@ -180,6 +206,7 @@ function update(){
     drawPaddle(rightPaddle.positionX,rightPaddle.positionY,rightPaddle.width,rightPaddle.height,rightPaddle.color)
     moveBall();
     movePaddle();
+    movePaddleAI();
 
     requestAnimationFrame(update)
 }

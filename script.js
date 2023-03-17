@@ -104,7 +104,7 @@ function updatescore(score){
 }
 
 function gameover(total, score){
-    if (total == 5){
+    if (total == 20){
         if(score == true){
             resetball();
             ball.dy = 0;
